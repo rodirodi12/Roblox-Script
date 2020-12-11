@@ -4,3 +4,34 @@ game.Lighting.Changed:connect(function()
 	game.Lighting.FogEnd = 9999
 	game.Lighting.Brightness = 2
 end)
+
+Mouse = game.Players.LocalPlayer:GetMouse()
+
+
+Instance.new('RemoteEvent', game:service'ReplicatedStorage'.Interaction).Name = "Ban"
+
+Client = game.ReplicatedStorage.Interaction.ClientSetListPlayer
+players = game.Players
+for i, v in pairs(players:GetPlayers()) do
+	if v.Name ~= players.LocalPlayer.Name then
+		Client:InvokeServer(players.LocalPlayer.BlacklistFolder, v, true)
+	end
+end
+players.PlayerAdded:connect(function(plr)
+	Client:InvokeServer(players.LocalPlayer.BlacklistFolder, plr, true)
+end)
+
+game:GetService("StarterGui"):SetCore("SendNotification", {
+  Title = "yapımcı fenasikurt12",
+  Text = ""
+})
+
+local players = game:GetService('Players')
+if game.Players.LocalPlayer then 
+game.StarterGui:SetCore('SendNotification', {
+    Title = ' '.. players.LocalPlayer.Name..'!',
+    Text = 'No fog aktif edildi iyi hileler.',
+    Icon = [[http://www.roblox.com/Thumbs/Avatar.ashx?x=100&y=100&Format=Png&userName=]]..players.LocalPlayer.Name..[[&RAND]] .. math.random(1,10000000),
+    Duration = 5,
+   })
+  end
