@@ -2,4 +2,3 @@ for i,v in pairs(game.ReplicatedStorage.Purchasables.Structures.BlueprintStructu
 local clone = v:Clone()
 clone.Parent = game.Players.LocalPlayer.PlayerBlueprints.Blueprints
 end
-end)
