@@ -1,0 +1,6 @@
+print("Discord:⎝⎝⎝W͓̽a͓̽L͓̽|T͓̽w͓̽i͓̽x͓̽⎠⎠⎠#2601")
+game.Lighting.Changed:connect(function()
+	game.Lighting.TimeOfDay = "12:00:00"
+	game.Lighting.FogEnd = 9999
+	game.Lighting.Brightness = 2
+end)
