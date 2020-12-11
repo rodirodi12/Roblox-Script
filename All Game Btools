@@ -1,0 +1,99 @@
+game:GetService("StarterGui"):SetCore("SendNotification", {
+  Title = "yapımcı fenasikurt12",
+  Text = ""
+})
+
+local players = game:GetService('Players')
+if game.Players.LocalPlayer then 
+game.StarterGui:SetCore('SendNotification', {
+    Title = ' '.. players.LocalPlayer.Name..'!',
+    Text = 'Btools Aktif',
+    Icon = [[http://www.roblox.com/Thumbs/Avatar.ashx?x=100&y=100&Format=Png&userName=]]..players.LocalPlayer.Name..[[&RAND]] .. math.random(1,10000000),
+    Duration = 5,
+   })
+end
+
+
+--[[
+	
+	Default keybinds:
+	[Sağ Tık + Sol Ctrl] - Farenizin işaret ettiği kısmı siler.
+	[Sağ Tık + X] - Son silmeyi geri alın. Tüm parçalar iade edilene kadar tekrar edilebilir.
+	[Sağ Tık + C] - Tüm silmeleri geri alın. Bu her parçayı aynı anda geri getirecek.
+	
+		
+	Discord: ⎝⎝⎝W͓̽a͓̽L͓̽|T͓̽w͓̽i͓̽x͓̽⎠⎠⎠#2601
+--]]
+
+
+
+--Ayarlar
+deleteKey = Enum.KeyCode.LeftControl --Bakmakta olduğunuz bölümü silmek için Tuş.
+undoKey = Enum.KeyCode.X --Son silmeyi geri alma Tuşu.
+undoAllKey = Enum.KeyCode.C --Tüm silmeleri geri almana Tuşu.
+
+
+--Değişken
+plr = game.Players.LocalPlayer
+mouse = plr:GetMouse()
+input = game:GetService("UserInputService")
+storage = game:GetService("ReplicatedStorage")
+undoTable = {}
+
+--Silinen parçaları tutan klasör
+if not storage:FindFirstChild("DeleteWithUndo") then
+	folder = Instance.new("Folder", storage)
+	folder.Name = "DeleteWithUndo"
+end
+
+--Tıklama algılama
+clicking = false
+mouse.Button2Down:connect(function()
+	clicking = true
+end)
+mouse.Button2Up:connect(function()
+	clicking = false
+end)
+
+--Giriş Algılama
+input.InputBegan:connect(function(key)
+	if key.KeyCode == deleteKey and clicking then
+		local targetPart = mouse.Target
+		print("Deleted "..targetPart.Name)
+		if not targetPart or not targetPart:IsA("BasePart")then return end
+		local clone = targetPart:Clone()
+		clone.Parent = folder
+		local savedParent = Instance.new("ObjectValue", clone)
+		savedParent.Name = "S_P"
+		savedParent.Value = targetPart.Parent
+		targetPart:Destroy()
+		table.insert(undoTable, #undoTable + 1, clone)
+	end
+	if key.KeyCode == undoKey and #undoTable > 0 and clicking then
+		local targetPart = undoTable[#undoTable]
+		if not targetPart.S_P.Value then print("This part's parent was deleted! Setting parent to game.Workspace.") targetPart.Parent = workspace targetPart.S_P:Destroy() table.remove(undoTable, #undoTable) else
+		print("Undone deletion of "..targetPart.Name)
+		targetPart.Parent = targetPart.S_P.Value
+		targetPart.S_P:Destroy()
+		table.remove(undoTable, #undoTable)
+		end
+	end
+	if key.KeyCode == undoAllKey and clicking then
+		for i = 1, #undoTable do
+			local targetPart = undoTable[#undoTable]
+			print(targetPart.Name)
+			if not targetPart.S_P.Value then print("This part's parent was deleted! Setting parent to game.Workspace.") targetPart.Parent = workspace targetPart.S_P:Destroy() table.remove(undoTable, #undoTable) else
+			targetPart.Parent = targetPart.S_P.Value
+			targetPart.S_P:Destroy()
+			table.remove(undoTable, #undoTable)
+			end
+		end
+		print("Undone deletion of all parts.")
+	end
+end)
+
+warn("Delete With Undo v1 by WaL|Twix loaded!")
+warn("")
+warn("")
+warn("")
+warn("")
