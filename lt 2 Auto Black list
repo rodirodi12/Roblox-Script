@@ -1,0 +1,30 @@
+Mouse = game.Players.LocalPlayer:GetMouse()
+
+
+Instance.new('RemoteEvent', game:service'ReplicatedStorage'.Interaction).Name = "Ban"
+
+Client = game.ReplicatedStorage.Interaction.ClientSetListPlayer
+players = game.Players
+for i, v in pairs(players:GetPlayers()) do
+	if v.Name ~= players.LocalPlayer.Name then
+		Client:InvokeServer(players.LocalPlayer.BlacklistFolder, v, true)
+	end
+end
+players.PlayerAdded:connect(function(plr)
+	Client:InvokeServer(players.LocalPlayer.BlacklistFolder, plr, true)
+end)
+
+game:GetService("StarterGui"):SetCore("SendNotification", {
+  Title = "byTwix",
+  Text = "Black Liste Alma Başarılı."
+})
+
+local players = game:GetService('Players')
+if game.Players.LocalPlayer then 
+game.StarterGui:SetCore('SendNotification', {
+    Title = ' '.. players.LocalPlayer.Name..'!',
+    Text = 'Lumber Tycoon 2 ye Hoş Geldiniz',
+    Icon = [[http://www.roblox.com/Thumbs/Avatar.ashx?x=100&y=100&Format=Png&userName=]]..players.LocalPlayer.Name..[[&RAND]] .. math.random(1,10000000),
+    Duration = 5,
+   })
+  end
