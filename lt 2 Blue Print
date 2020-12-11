@@ -2,3 +2,18 @@ for i,v in pairs(game.ReplicatedStorage.Purchasables.Structures.BlueprintStructu
 local clone = v:Clone()
 clone.Parent = game.Players.LocalPlayer.PlayerBlueprints.Blueprints
 end
+
+game:GetService("StarterGui"):SetCore("SendNotification", {
+  Title = "yapımcı fenasikurt12",
+  Text = "Blueprint alma başarılı."
+})
+
+local players = game:GetService('Players')
+if game.Players.LocalPlayer then 
+game.StarterGui:SetCore('SendNotification', {
+    Title = ' '.. players.LocalPlayer.Name..'!',
+    Text = 'İyi Hileler',
+    Icon = [[http://www.roblox.com/Thumbs/Avatar.ashx?x=100&y=100&Format=Png&userName=]]..players.LocalPlayer.Name..[[&RAND]] .. math.random(1,10000000),
+    Duration = 5,
+   })
+  end
