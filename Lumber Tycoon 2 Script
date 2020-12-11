@@ -1,0 +1,14 @@
+Bark Gui
+
+loadstring(game:HttpGetAsync'https://dogix.wtf/scripts/lt2/barkdata/bootstrapper')'Fuck Blood, all my homies HATE Blood. (bark v8.1 winning)'
+
+Cynical Gui
+
+loadstring(game:HttpGetAsync'http://www.cynical.vip')()
+
+Blood Gui
+
+loadstring(game:GetObjects("rbxassetid://5886284591")[1].Source)()
+
+Btools (Tüm Oyunlar)
+
